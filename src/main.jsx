@@ -276,7 +276,6 @@ function RoleLanding({ onSelect }) {
       <section className="container grid min-h-[calc(100vh-5rem)] content-center gap-8">
         <div className="max-w-3xl">
           <h1 className="text-4xl font-black leading-tight md:text-6xl">Peer-to-Peer conecta estudiantes, tutores y administradores en flujos completos.</h1>
-          <p className="mt-5 max-w-2xl text-lg text-white/80">Elige un rol para entrar a su propio inicio, header, sidebar y herramientas funcionales. Los datos se manejan en memoria para simular la experiencia real.</p>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
           <RoleCard role="student" title="Estudiante" desc="Buscar tutores, solicitar tutorias, revisar agenda y recursos." Icon={GraduationCap} onSelect={onSelect} />
