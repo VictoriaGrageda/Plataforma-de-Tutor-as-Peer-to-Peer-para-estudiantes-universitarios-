@@ -27,6 +27,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./com
 import { Input, Label, Select, Textarea } from "./components/ui/form";
 import "./styles.css";
 
+const subjectsSeed = [
+  "Programacion",
+  "Base de datos",
+  "Algoritmos",
+  "Calculo",
+  "Fisica",
+  "Estadistica",
+  "Redes",
+  "Ingles tecnico"
+];
+
 const tutorsSeed = [
   {
     id: 1,
@@ -48,7 +59,7 @@ const tutorsSeed = [
     career: "Matematica",
     subjects: ["Calculo", "Algoritmos"],
     mode: "Presencial",
-    time: "Manana",
+    time: "Mañana",
     availability: "Hoy",
     rating: 4.7,
     sessions: 21,
@@ -69,19 +80,97 @@ const tutorsSeed = [
     bio: "Apoya proyectos con SQL, diagramas entidad relacion, normalizacion y buenas practicas.",
     schedule: ["Lun 19:00 - 20:00", "Mie 18:30 - 19:30", "Sab 10:00 - 11:30"],
     comments: ["Excelente dominio de SQL.", "Reviso mi avance con detalle."]
+  },
+  {
+    id: 4,
+    name: "Valeria Quiroga",
+    career: "Ing. Industrial",
+    subjects: ["Estadistica", "Calculo"],
+    mode: "Virtual",
+    time: "Noche",
+    availability: "Mañana",
+    rating: 4.6,
+    sessions: 18,
+    bio: "Trabaja ejercicios de probabilidad, distribuciones, regresion y calculo aplicado con guias paso a paso.",
+    schedule: ["Lun 20:00 - 21:00", "Mie 20:00 - 21:30", "Vie 18:00 - 19:00"],
+    comments: ["Muy clara con las formulas.", "Sus resumenes ayudan bastante."]
+  },
+  {
+    id: 5,
+    name: "Mateo Salazar",
+    career: "Ing. Telecomunicaciones",
+    subjects: ["Redes", "Fisica"],
+    mode: "Presencial",
+    time: "Tarde",
+    availability: "Esta semana",
+    rating: 4.8,
+    sessions: 24,
+    bio: "Refuerza capas OSI, subnetting, configuracion basica y problemas de fisica mecanica.",
+    schedule: ["Mar 14:00 - 15:30", "Jue 15:00 - 16:30", "Sab 09:00 - 10:00"],
+    comments: ["Domina subnetting.", "Explica con dibujos y casos reales."]
+  },
+  {
+    id: 6,
+    name: "Andrea Paredes",
+    career: "Lic. Idiomas",
+    subjects: ["Ingles tecnico"],
+    mode: "Virtual",
+    time: "Mañana",
+    availability: "Hoy",
+    rating: 4.9,
+    sessions: 29,
+    bio: "Ayuda con lectura tecnica, vocabulario de ingenieria, presentaciones y redaccion academica.",
+    schedule: ["Lun 08:00 - 09:00", "Mie 07:30 - 08:30", "Vie 11:00 - 12:00"],
+    comments: ["Me ayudo con mi exposicion.", "Corrige sin hacerte perder confianza."]
+  },
+  {
+    id: 7,
+    name: "Sebastian Arias",
+    career: "Ing. Sistemas",
+    subjects: ["Algoritmos", "Programacion", "Redes"],
+    mode: "Hibrida",
+    time: "Tarde",
+    availability: "Hoy",
+    rating: 4.7,
+    sessions: 35,
+    bio: "Prepara ejercicios de parciales, pseudocodigo, complejidad, estructuras y practicas de laboratorio.",
+    schedule: ["Lun 17:00 - 18:00", "Mar 18:00 - 19:00", "Jue 17:30 - 18:30"],
+    comments: ["Tiene ejercicios tipo examen.", "Hace que el codigo se entienda."]
+  },
+  {
+    id: 8,
+    name: "Paola Gutierrez",
+    career: "Ing. Civil",
+    subjects: ["Fisica", "Calculo", "Estadistica"],
+    mode: "Presencial",
+    time: "Mañana",
+    availability: "Esta semana",
+    rating: 4.5,
+    sessions: 14,
+    bio: "Acompana resolucion de ejercicios de movimiento, derivadas, integrales y analisis de datos basico.",
+    schedule: ["Mar 09:30 - 10:30", "Jue 08:00 - 09:00", "Sab 11:00 - 12:30"],
+    comments: ["Buena para despejar dudas rapidas.", "Lleva ejercicios impresos."]
   }
 ];
 
 const resourcesSeed = [
   { id: 1, subject: "Programacion", title: "Guia de estructuras de datos", owner: "Carlos", status: "Publicado", downloads: 48 },
   { id: 2, subject: "Base de datos", title: "Plantilla entidad relacion", owner: "Diego", status: "Publicado", downloads: 31 },
-  { id: 3, subject: "Algoritmos", title: "Ejercicios de complejidad", owner: "Lucia", status: "Revision", downloads: 16 }
+  { id: 3, subject: "Algoritmos", title: "Ejercicios de complejidad", owner: "Lucia", status: "Revision", downloads: 16 },
+  { id: 4, subject: "Calculo", title: "Formulario de derivadas e integrales", owner: "Valeria", status: "Publicado", downloads: 40 },
+  { id: 5, subject: "Redes", title: "Practica de subnetting con soluciones", owner: "Mateo", status: "Publicado", downloads: 27 },
+  { id: 6, subject: "Fisica", title: "Problemas resueltos de cinematica", owner: "Paola", status: "Publicado", downloads: 22 },
+  { id: 7, subject: "Ingles tecnico", title: "Vocabulario para presentaciones tecnicas", owner: "Andrea", status: "Revision", downloads: 12 },
+  { id: 8, subject: "Estadistica", title: "Resumen de distribuciones", owner: "Valeria", status: "Publicado", downloads: 19 }
 ];
 
 const requestSeed = [
   { id: 1, student: "Mariana Choque", tutor: "Carlos Mendoza", subject: "Programacion", topic: "Estructuras de datos", schedule: "Mar 16:00 - 17:00", mode: "Virtual", status: "Pendiente" },
   { id: 2, student: "Jose Alvarez", tutor: "Carlos Mendoza", subject: "Programacion", topic: "Recursividad", schedule: "Jue 09:00 - 10:30", mode: "Virtual", status: "Pendiente" },
-  { id: 3, student: "Camila Flores", tutor: "Diego Rojas", subject: "Base de datos", topic: "Normalizacion", schedule: "Sab 10:00 - 11:30", mode: "Hibrida", status: "Programada" }
+  { id: 3, student: "Camila Flores", tutor: "Diego Rojas", subject: "Base de datos", topic: "Normalizacion", schedule: "Sab 10:00 - 11:30", mode: "Hibrida", status: "Programada" },
+  { id: 4, student: "Luis Mercado", tutor: "Valeria Quiroga", subject: "Estadistica", topic: "Distribucion normal", schedule: "Mie 20:00 - 21:30", mode: "Virtual", status: "Programada" },
+  { id: 5, student: "Fernanda Rios", tutor: "Mateo Salazar", subject: "Redes", topic: "Subnetting", schedule: "Jue 15:00 - 16:30", mode: "Presencial", status: "Pendiente" },
+  { id: 6, student: "Nicolas Teran", tutor: "Andrea Paredes", subject: "Ingles tecnico", topic: "Presentacion oral", schedule: "Vie 11:00 - 12:00", mode: "Virtual", status: "Pendiente" }
 ];
 
 const reportSeed = [
@@ -166,7 +255,7 @@ function App() {
 
   const filteredTutors = useMemo(() => {
     return tutors.filter((tutor) => {
-      const text = `${tutor.name} ${tutor.subjects.join(" ")}`.toLowerCase();
+      const text = `${tutor.name} ${tutor.career} ${tutor.subjects.join(" ")} ${tutor.bio} ${tutor.comments.join(" ")}`.toLowerCase();
       return (
         (!filters.query || text.includes(filters.query.toLowerCase())) &&
         (!filters.subject || tutor.subjects.includes(filters.subject)) &&
@@ -343,6 +432,11 @@ function StudentViews(props) {
 }
 
 function StudentHome({ setView, filters, setFilters }) {
+  const searchBySubject = (subject) => {
+    setFilters({ ...filters, subject, query: "" });
+    setView("search");
+  };
+
   return (
     <>
       <PageTitle eyebrow="Inicio estudiante" title="Encuentra apoyo academico entre companeros" desc="Busca por materia, revisa tutores disponibles y solicita una tutoria en minutos." />
@@ -352,8 +446,9 @@ function StudentHome({ setView, filters, setFilters }) {
           <CardContent className="grid gap-5">
             <div className="flex flex-col gap-3 sm:flex-row"><Input placeholder="Buscar materia o tema..." value={filters.query} onChange={(e) => setFilters({ ...filters, query: e.target.value })} /><Button onClick={() => setView("search")}><Search className="h-4 w-4" /> Buscar</Button></div>
             <div className="flex flex-wrap gap-3">
-              <Button onClick={() => setView("search")}>Registrarse</Button>
-              <Button variant="outline" onClick={() => setView("search")}>Iniciar sesion</Button>
+              {subjectsSeed.slice(0, 6).map((subject) => (
+                <Button key={subject} variant="outline" onClick={() => searchBySubject(subject)}>{subject}</Button>
+              ))}
             </div>
           </CardContent>
         </Card>
@@ -390,8 +485,21 @@ function StudentSearch({ filters, setFilters, tutors, selectedTutor, selectTutor
             <Input placeholder="Buscar materia, tema o tutor..." value={filters.query} onChange={(e) => setFilters({ ...filters, query: e.target.value })} />
             <Button><Search className="h-4 w-4" /> Buscar</Button>
           </div>
+          <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+            <strong className="text-foreground">{tutors.length}</strong> tutores encontrados
+            {filters.subject && <Badge variant="secondary">{filters.subject}</Badge>}
+            {filters.mode && <Badge variant="secondary">{filters.mode}</Badge>}
+            {filters.time && <Badge variant="secondary">{filters.time}</Badge>}
+          </div>
           <div className="grid gap-4">
             {tutors.map((tutor) => <TutorCard key={tutor.id} tutor={tutor} active={selectedTutor.id === tutor.id} onClick={() => selectTutor(tutor)} />)}
+            {!tutors.length && (
+              <Card>
+                <CardContent className="p-5 text-sm text-muted-foreground">
+                  No hay tutores con esos filtros. Prueba con otra materia, modalidad u horario.
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
       </div>
@@ -403,9 +511,12 @@ function FilterFields({ filters, setFilters }) {
   return (
     <>
       <Input placeholder="Materia, tema o tutor" value={filters.query} onChange={(e) => setFilters({ ...filters, query: e.target.value })} />
-      <Select value={filters.subject} onChange={(e) => setFilters({ ...filters, subject: e.target.value })}><option value="">Todas las materias</option><option>Programacion</option><option>Base de datos</option><option>Algoritmos</option><option>Calculo</option></Select>
+      <Select value={filters.subject} onChange={(e) => setFilters({ ...filters, subject: e.target.value })}>
+        <option value="">Todas las materias</option>
+        {subjectsSeed.map((subject) => <option key={subject}>{subject}</option>)}
+      </Select>
       <Select value={filters.mode} onChange={(e) => setFilters({ ...filters, mode: e.target.value })}><option value="">Todas las modalidades</option><option>Virtual</option><option>Presencial</option><option>Hibrida</option></Select>
-      <Select value={filters.time} onChange={(e) => setFilters({ ...filters, time: e.target.value })}><option value="">Cualquier horario</option><option>Manana</option><option>Tarde</option><option>Noche</option></Select>
+      <Select value={filters.time} onChange={(e) => setFilters({ ...filters, time: e.target.value })}><option value="">Cualquier horario</option><option>Mañana</option><option>Tarde</option><option>Noche</option></Select>
       <Select value={filters.rating} onChange={(e) => setFilters({ ...filters, rating: e.target.value })}><option value="">Cualquier calificacion</option><option value="4.5">4.5 o mas</option><option value="4.8">4.8 o mas</option></Select>
     </>
   );
@@ -416,7 +527,15 @@ function TutorCard({ tutor, active, onClick }) {
     <Card className={active ? "ring-2 ring-primary" : ""}>
       <CardContent className="grid gap-4 p-5 sm:grid-cols-[56px_1fr_auto] sm:items-center">
         <div className="grid h-14 w-14 place-items-center rounded-full bg-cyan-100 font-black text-cyan-900">{tutor.name.split(" ").map((n) => n[0]).join("")}</div>
-        <div><h3 className="font-black">{tutor.name} - {tutor.subjects[0]}</h3><p className="text-sm text-muted-foreground">{tutor.mode} | Horarios disponibles: {tutor.schedule.length} | Comentarios: {tutor.comments.length}</p><div className="mt-2 flex flex-wrap gap-2"><Badge variant="emerald">{tutor.availability}</Badge><Badge variant="amber"><Star className="mr-1 h-3 w-3" />{tutor.rating}</Badge></div></div>
+        <div>
+          <h3 className="font-black">{tutor.name} - {tutor.subjects[0]}</h3>
+          <p className="text-sm text-muted-foreground">{tutor.mode} | Horarios disponibles: {tutor.schedule.length} | Proximo: {tutor.schedule[0] || "Sin horario activo"} | Comentarios: {tutor.comments.length}</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {tutor.subjects.map((subject) => <Badge key={subject} variant="secondary">{subject}</Badge>)}
+            <Badge variant="emerald">{tutor.availability}</Badge>
+            <Badge variant="amber"><Star className="mr-1 h-3 w-3" />{tutor.rating}</Badge>
+          </div>
+        </div>
         <Button onClick={onClick}>Ver perfil</Button>
       </CardContent>
     </Card>
@@ -548,7 +667,28 @@ function ScheduleManager({ schedule, newSlot, setNewSlot, addScheduleSlot, remov
 }
 
 function SubjectsManager() {
-  return <><PageTitle eyebrow="Materias" title="Materias habilitadas para tutorias" /><div className="grid gap-4 md:grid-cols-3">{["Programacion", "Base de datos", "Algoritmos"].map((s) => <Card key={s}><CardHeader><CardTitle>{s}</CardTitle><CardDescription>Perfil visible para estudiantes</CardDescription></CardHeader><CardContent><Button variant="outline" className="w-full">Editar materia</Button></CardContent></Card>)}</div></>;
+  return (
+    <>
+      <PageTitle eyebrow="Materias" title="Materias habilitadas para tutorias" />
+      <div className="grid gap-4 md:grid-cols-3">
+        {subjectsSeed.map((subject) => {
+          const tutorCount = tutorsSeed.filter((tutor) => tutor.subjects.includes(subject)).length;
+          const scheduleCount = tutorsSeed
+            .filter((tutor) => tutor.subjects.includes(subject))
+            .reduce((total, tutor) => total + tutor.schedule.length, 0);
+          return (
+            <Card key={subject}>
+              <CardHeader>
+                <CardTitle>{subject}</CardTitle>
+                <CardDescription>{tutorCount} tutores disponibles | {scheduleCount} horarios mock</CardDescription>
+              </CardHeader>
+              <CardContent><Button variant="outline" className="w-full">Editar materia</Button></CardContent>
+            </Card>
+          );
+        })}
+      </div>
+    </>
+  );
 }
 
 function UsersPanel() {
