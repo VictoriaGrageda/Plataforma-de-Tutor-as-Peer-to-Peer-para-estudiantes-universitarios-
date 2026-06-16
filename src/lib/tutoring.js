@@ -1,6 +1,6 @@
 export function statusVariant(status) {
-  if (status === "Aceptada" || status === "Finalizada" || status === "Programada" || status === "Aprobado" || status === "Publicado") return "emerald";
-  if (status === "Cancelada" || status === "Bloqueado") return "rose";
+  if (status === "Aceptada" || status === "Finalizada" || status === "Programada" || status === "Aprobado" || status === "Publicado" || status === "Resuelto") return "emerald";
+  if (status === "Cancelada" || status === "Bloqueado" || status === "Ignorado") return "rose";
   return "amber";
 }
 

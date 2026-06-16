@@ -1,15 +1,11 @@
 import { PageTitle } from "../../components/layout/PageTitle";
 import { DashboardCards } from "../../components/shared/DashboardCards";
-import { ListRequests } from "../../components/shared/ListRequests";
 import { Reports } from "../../components/shared/Reports";
 import { Card, CardContent } from "../../components/ui/card";
+import { ProfilesPanel } from "./ProfilesPanel";
 
 function UsersPanel() {
   return <><PageTitle eyebrow="Usuarios" title="Gestion de usuarios activos" /><DashboardCards items={[["Estudiantes", 84], ["Tutores", 31], ["Administradores", 5]]} /></>;
-}
-
-function ProfilesPanel() {
-  return <><PageTitle eyebrow="Perfiles" title="Perfiles por revisar" /><ListRequests requests={[{ id: 1, student: "Carlos Mendoza", tutor: "Admin", subject: "Perfil tutor", topic: "Validar materias y descripcion", schedule: "Hoy", mode: "Revision", status: "Pendiente" }]} /></>;
 }
 
 function RulesPanel() {

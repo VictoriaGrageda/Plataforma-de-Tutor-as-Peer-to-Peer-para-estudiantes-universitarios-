@@ -18,8 +18,8 @@ export function Reports({ reports, updateReport, compact }) {
                 <Badge className="mt-2" variant={statusVariant(report.status)}>{report.status}</Badge>
               </div>
               <div className="flex gap-2">
-                <Button disabled={report.status !== "Pendiente"} onClick={() => updateReport(report.id, "Aprobado")}>Resolver</Button>
-                <Button disabled={report.status !== "Pendiente"} variant="outline" onClick={() => updateReport(report.id, "Bloqueado")}>Bloquear</Button>
+                <Button disabled={report.status !== "Pendiente"} onClick={() => updateReport(report.id, "Resuelto")}>Resolver</Button>
+                <Button disabled={report.status !== "Pendiente"} variant="outline" onClick={() => updateReport(report.id, "Ignorado")}>Ignorar</Button>
               </div>
             </CardContent>
           </Card>
