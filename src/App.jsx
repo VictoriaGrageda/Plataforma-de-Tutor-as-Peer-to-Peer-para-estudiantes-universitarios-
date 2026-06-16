@@ -1,19 +1,20 @@
 import { useMemo, useState } from "react";
-import { LogOut, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { roleConfig } from "./config/roleConfig";
-import { RoleLanding } from "./components/layout/RoleLanding";
 import { Sidebar } from "./components/layout/Sidebar";
-import { Badge } from "./components/ui/badge";
+import { UserMenu } from "./components/layout/UserMenu";
 import { Button } from "./components/ui/button";
 import { allTutorsSeed } from "./data/mockData";
 import { currentStudentName, reportSeed, requestSeed, resourcesSeed } from "./data/platformData";
+import { AccountProfile } from "./features/account/AccountProfile";
 import { AdminViews } from "./features/admin/AdminViews";
+import { AuthHome } from "./features/auth/AuthHome";
 import { StudentViews } from "./features/student/StudentViews";
 import { TutorViews } from "./features/tutor/TutorViews";
 import { findScheduleMode, scheduleLabel } from "./lib/tutoring";
 
 export function App() {
-  const [role, setRole] = useState(null);
+  const [session, setSession] = useState(null);
   const [view, setView] = useState("home");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedTutorId, setSelectedTutorId] = useState(1);
@@ -44,8 +45,14 @@ export function App() {
       (!filters.rating || tutor.rating >= Number(filters.rating));
   }), [filters, tutors]);
 
-  function enterRole(nextRole) {
-    setRole(nextRole);
+  function startSession(nextSession) {
+    setSession(nextSession);
+    setView("home");
+    setSidebarOpen(false);
+  }
+
+  function logout() {
+    setSession(null);
     setView("home");
     setSidebarOpen(false);
   }
@@ -76,9 +83,10 @@ export function App() {
   const removeScheduleSlot = (id) => setTutorSchedule((current) => current.filter((slot) => slot.id !== id));
   const toggleScheduleSlot = (id) => setTutorSchedule((current) => current.map((slot) => (slot.id === id ? { ...slot, active: !slot.active } : slot)));
 
-  if (!role) return <RoleLanding onSelect={enterRole} />;
+  if (!session) return <AuthHome onLogin={startSession} />;
+  const role = session.role;
   const config = roleConfig[role];
-  const roleView = {
+  const roleView = view === "account" ? <AccountProfile session={session} /> : {
     student: <StudentViews view={view} setView={setView} filters={filters} setFilters={setFilters} tutors={filteredTutors} selectedTutor={selectedTutor} selectTutor={selectTutor} form={studentForm} setForm={setStudentForm} sendRequest={sendRequest} requests={requests} updateRequest={updateRequest} addRequestFeedback={addRequestFeedback} resources={resourcesSeed} />,
     tutor: <TutorViews view={view} requests={requests} updateRequest={updateRequest} resources={resourcesSeed} schedule={tutorSchedule} newSlot={newSlot} setNewSlot={setNewSlot} addScheduleSlot={addScheduleSlot} removeScheduleSlot={removeScheduleSlot} toggleScheduleSlot={toggleScheduleSlot} />,
     admin: <AdminViews view={view} reports={reports} updateReport={updateReport} requests={requests} resources={resourcesSeed} />
@@ -90,7 +98,7 @@ export function App() {
         <div className="flex min-h-16 flex-wrap items-center gap-3 px-4 py-2 lg:px-7">
           <Button variant="outline" size="icon" className="lg:hidden" onClick={() => setSidebarOpen(true)}><Menu className="h-5 w-5" /></Button>
           <button className="flex items-center gap-3 font-black" onClick={() => setView("home")}><span className={`grid h-10 w-10 place-items-center rounded-lg bg-gradient-to-br ${config.color} text-white`}><config.icon className="h-5 w-5" /></span><span className="text-xl">PeerTutor</span></button>
-          <div className="ml-auto flex min-w-0 items-center gap-2"><Badge variant="secondary">{config.title}</Badge><Button variant="outline" onClick={() => setRole(null)}><LogOut className="h-4 w-4" /> Cerrar sesion</Button></div>
+          <UserMenu session={session} onLogout={logout} onProfile={() => setView("account")} />
         </div>
       </header>
       <div className="grid lg:grid-cols-[270px_1fr]"><Sidebar role={role} view={view} setView={setView} open={sidebarOpen} setOpen={setSidebarOpen} /><main className="min-w-0 px-4 py-5 lg:px-7 lg:py-7">{roleView}</main></div>
